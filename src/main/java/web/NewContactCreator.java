@@ -6,7 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class NewContactCreator {
-    SelenideElement chek = $x("//span[text()='Редактировать']");
+    SelenideElement chek = $x("//div[text()='Основное']/following-sibling::div/button");
 
 
     public void chek(){
