@@ -12,7 +12,7 @@ public class MainPage {
     private SelenideElement hrefContacts = $x("//a[@href='/contacts']");
     private SelenideElement hrefInterests = $x("//a[@href='/interests']");
 
-    private String test = "ТЕст";
+    private String test = "ТЕст!!!!!!!!!!!!!!!";
 
 
 

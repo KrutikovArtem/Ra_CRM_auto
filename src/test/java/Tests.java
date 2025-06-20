@@ -12,7 +12,7 @@ public class Tests extends BaseSelenidePage {
     private final String PASSWORD = "GpDW5Z?mlJDY";
     private final String BASE_URL_LOGIN = "https://172.20.206.107/login";
 
-    private String test = "ТЕст";
+    private String test = "ТЕст!!!&&&&&&&&&&&&&&&&";
 
 
     @Test
