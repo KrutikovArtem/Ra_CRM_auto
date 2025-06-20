@@ -12,13 +12,15 @@ public class Tests extends BaseSelenidePage {
     private final String PASSWORD = "GpDW5Z?mlJDY";
     private final String BASE_URL_LOGIN = "https://172.20.206.107/login";
 
+    private String test = "ТЕст!!!&&&&&&&&&&&&&&&&";
+
 
     @Test
     public void authorization() {
         new AutorizationPage(BASE_URL_LOGIN).autorization(LOGIN, PASSWORD);
     }
 
-
+//Это тест новой ветки?
     @Test
     public void createNewContact() {
         AutorizationPage autorizationPage = new AutorizationPage(BASE_URL_LOGIN);
