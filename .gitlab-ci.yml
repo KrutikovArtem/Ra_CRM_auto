@@ -1,0 +1,9 @@
+image: maven:3.9.6-eclipse-temurin-17
+
+stages:
+  - test
+
+run-tests:
+  stage: test
+  script:
+    - mvn clean test
