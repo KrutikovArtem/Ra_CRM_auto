@@ -1,0 +1,193 @@
+<html lang="en"><head><style data-rc-order="prepend" rc-util-key="@ant-design-icons">
+.anticon {
+  display: inline-block;
+  color: inherit;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: -0.125em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.anticon > * {
+  line-height: 1;
+}
+
+.anticon svg {
+  display: inline-block;
+}
+
+.anticon::before {
+  display: none;
+}
+
+.anticon .anticon-icon {
+  display: block;
+}
+
+.anticon[tabindex] {
+  cursor: pointer;
+}
+
+.anticon-spin::before,
+.anticon-spin {
+  display: inline-block;
+  -webkit-animation: loadingCircle 1s infinite linear;
+  animation: loadingCircle 1s infinite linear;
+}
+
+@-webkit-keyframes loadingCircle {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingCircle {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+</style>
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple_180.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/svg" sizes="16x16" href="/favicon-16x16.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="72x72" href="/favicon-72x72.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="120x120" href="/favicon-120x120.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <title>Авторизация</title>
+    <style>
+      @keyframes spaLoadingMove {
+        to {
+          opacity: 1
+        }
+      }
+
+      @keyframes spaLoadingRotate {
+        to {
+          transform: rotate(360deg)
+        }
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #root {
+        width: 100%;
+        height: 100vh;
+      }
+
+      .spa-loading-wrapper {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+      }
+
+      .spa-loading {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-variant: tabular-nums;
+        line-height: 1.5715;
+        list-style: none;
+        font-feature-settings: "tnum";
+        color: rgb(16, 127, 140);
+        font-size: 0;
+        text-align: center;
+        vertical-align: middle;
+        transition: transform .3s cubic-bezier(.78,.14,.15,.86);
+        position: static;
+        display: inline-block;
+        opacity: 1;
+      }
+
+      .spa-loading-dot {
+        text-align: center;
+        font-variant: tabular-nums;
+        line-height: 1.5715;
+        list-style: none;
+        font-feature-settings: "tnum";
+        position: relative;
+        display: inline-block;
+        color: rgb(16, 127, 140);
+        font-size: 32px;
+        width: 1em;
+        height: 1em;
+        transform: rotate(0);
+        animation: spaLoadingRotate 1.2s infinite linear;
+        box-sizing: border-box;
+      }
+
+      .spa-loading-dot-item {
+        position: absolute;
+        display: block;
+        background-color: rgb(16, 127, 140);
+        border-radius: 100%;
+        transform: scale(.75);
+        transform-origin: 50% 50%;
+        opacity: .3;
+        animation: spaLoadingMove 1s infinite linear alternate;
+        width: 14px;
+        height: 14px;
+      }
+
+      .spa-loading-dot-item:nth-child(1) {
+        top: 0;
+        left: 0;
+      }
+
+      .spa-loading-dot-item:nth-child(2) {
+        top: 0;
+        right: 0;
+        animation-delay: .4s;
+      }
+
+      .spa-loading-dot-item:nth-child(3) {
+        right: 0;
+        bottom: 0;
+        animation-delay: .8s;
+      }
+
+      .spa-loading-dot-item:nth-child(4) {
+        bottom: 0;
+        left: 0;
+        animation-delay: 1.2s;
+      }
+    </style>
+  <script defer="" src="/static/js/lib-axios.e5aead81.js"></script><script defer="" src="/static/js/lib-react.d9e5b161.js"></script><script defer="" src="/static/js/4204.c86638d8.js"></script><script defer="" src="/static/js/index.b28c688a.js"></script><link href="/static/css/index.dc85249f.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="/static/css/async/390.7b8ae3c9.css"><link rel="stylesheet" type="text/css" href="/static/css/async/app.5abefc62.css"><link rel="stylesheet" type="text/css" href="/static/css/async/user-login.f2b2ab3b.css"></head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"><div class="container-STjXSf"><div class="box-KzKPu8"><div class="card-Q6ieRF"><div class="header-NiPT3K"><div class="logo-RtPrcx"><svg xmlns="http://www.w3.org/2000/svg" width="51" height="22" fill="none" viewBox="0 0 51 22"><path fill="#107F8C" d="M47.658 9.023c.56-.783 1.397-2.316 1.011-2.88-.464-.676-2.505.631-3.156 1.02-6.01 3.596-7.883 5.477-13.588 9.262-2.103 1.396-7.133 4.316-9.378 4.772-3.766.765-5.832-1.801-3.722-4.61 1.462-1.946 2.193-3.213-3.175-4.45-3.038-.699-10.456-2.193-13.672-4.228-2.556-1.616-2.53-4.426.1-5.862C4.825.548 9.458.517 12.618.814c11.259 1.06 23.212 6.857 25.106 7.931 6.862 3.893 7.078 4.268 9.934.277m-10.792.914C32.549 8.105 21.318 3.784 12.519 3.14c-3.834-.281-6.77-.473-8.923.55-2.08.989-1.35 2.413.482 3.655 1.773 1.201 8.761 3.203 11.774 3.966 4.274 1.082 6.474 1.906 4.148 5.877-.834 1.424-.343 2.829 2.076 2.245 2.52-.609 7.654-3.541 9.725-4.845 5.53-3.481 12.27-7.233 13.429-7.91 3.379-1.97 4.355-1.583 4.676-1.19.602.736-.47 2.732-1.13 3.838-3.232 5.422-6.988 2.699-11.91.61"></path></svg></div></div><h5 class="welcome-RzNYGj">Добро пожаловать в СберСити CRM!</h5><p class="welcome-sub-A1Qcb3">Пожалуйста, авторизуйтесь<br> для использования системы</p><form data-testid="user-login-form" class="ant-form ant-form-horizontal card-form-AqwMxz"><div class="ant-row card-form-row-Lt4T7_ card-form-row-gap-BzQQUV" style="margin-left: -12px; margin-right: -12px; row-gap: 16px;"><div class="ant-col card-form-column-dNK7Hz" style="padding-left: 12px; padding-right: 12px;"><div class="ant-form-item card-form-field-E4fW1I undefined card-form-field-vertical-Y1hYft"><div class="ant-row ant-form-item-row"><div class="ant-col ant-col-24 ant-form-item-label"><label class="" title=""><div class="card-form-label-zPLIPK"><div class="card-form-label-main-SppiA3">E-mail</div></div></label></div><div class="ant-col ant-form-item-control"><div class="ant-form-item-control-input"><div class="ant-form-item-control-input-content"><span class="ant-input-affix-wrapper input-dKEU9a input-wide-ugIMFw"><span class="ant-input-prefix"><span role="img" class="anticon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true" focusable="false" class=""><path fill="#000" fill-opacity="0.85" d="M14.187 12.49a6.7 6.7 0 0 0-1.44-2.133 6.7 6.7 0 0 0-2.133-1.44l-.022-.009a4.428 4.428 0 1 0-7.021-3.59c0 1.478.723 2.787 1.836 3.592l-.022.01a6.7 6.7 0 0 0-2.134 1.438 6.7 6.7 0 0 0-1.966 4.6.143.143 0 0 0 .143.147H2.5a.143.143 0 0 0 .143-.14 5.32 5.32 0 0 1 1.568-3.648A5.32 5.32 0 0 1 8 9.747c1.432 0 2.776.558 3.789 1.57a5.32 5.32 0 0 1 1.568 3.649c.001.078.064.139.143.139h1.07a.143.143 0 0 0 .144-.146 6.7 6.7 0 0 0-.527-2.468m-6.188-4.1c-.82 0-1.59-.319-2.17-.9-.581-.58-.9-1.351-.9-2.17 0-.82.319-1.592.9-2.172.58-.58 1.35-.9 2.17-.9s1.592.32 2.172.9.9 1.352.9 2.171c0 .82-.32 1.591-.9 2.172-.58.58-1.352.9-2.172.9"></path></svg></span></span><input autocomplete="username" maxlength="50" id="email" data-testid="user-login-form-name" aria-required="true" class="ant-input" type="text" value=""><span class="ant-input-suffix"><span class="ant-input-show-count-suffix">0 / 50</span></span></span></div></div></div></div></div></div></div><div class="ant-row card-form-row-Lt4T7_ card-form-row-gap-BzQQUV" style="margin-left: -12px; margin-right: -12px; row-gap: 16px;"><div class="ant-col card-form-column-dNK7Hz" style="padding-left: 12px; padding-right: 12px;"><div class="ant-form-item card-form-field-E4fW1I undefined card-form-field-vertical-Y1hYft"><div class="ant-row ant-form-item-row"><div class="ant-col ant-col-24 ant-form-item-label"><label class="" title=""><div class="card-form-label-zPLIPK"><div class="card-form-label-main-SppiA3">Пароль</div></div></label></div><div class="ant-col ant-form-item-control"><div class="ant-form-item-control-input"><div class="ant-form-item-control-input-content"><span class="ant-input-affix-wrapper ant-input-password"><span class="ant-input-prefix"><span role="img" class="anticon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 36 36" aria-hidden="true" focusable="false" class=""><path d="M29.25 16.313h-2.39V8.438a4.5 4.5 0 0 0-4.5-4.5h-8.72a4.5 4.5 0 0 0-4.5 4.5v7.874H6.75c-.622 0-1.125.503-1.125 1.125v13.5c0 .623.503 1.125 1.125 1.125h22.5c.622 0 1.125-.502 1.125-1.124v-13.5c0-.623-.503-1.125-1.125-1.125m-10.266 8.332v1.863a.28.28 0 0 1-.28.281h-1.407a.28.28 0 0 1-.281-.281v-1.863a1.687 1.687 0 1 1 1.968 0m5.344-8.332H11.672V8.438a1.97 1.97 0 0 1 1.969-1.97h8.718a1.97 1.97 0 0 1 1.97 1.97z"></path></svg></span></span><input autocomplete="current-password" data-testid="user-login-form-password" maxlength="50" id="password" aria-required="true" type="password" class="ant-input"><span class="ant-input-suffix"><span role="img" aria-label="eye-invisible" tabindex="-1" class="anticon anticon-eye-invisible ant-input-password-icon"><svg viewBox="64 64 896 896" focusable="false" data-icon="eye-invisible" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"></path><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"></path></svg></span></span></span></div></div></div></div></div></div></div><button data-testid="user-login-form-submit" type="submit" class="ant-btn ant-btn-primary button-UmEn5B submit-button-dAG59M" disabled=""><span>Войти</span></button></form></div></div></div></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  
+
+</body></html>
