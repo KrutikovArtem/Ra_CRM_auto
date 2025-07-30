@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class AutorizationPage {
 
-    private SelenideElement inputEmail = $x("//input[@id='e=m=a=i=l']");
+    private SelenideElement inputEmail = $x("//input[@id='email']");
     private SelenideElement inputPassword = $x("//input[@id='password']");
     private SelenideElement buttonSubmit = $x("//button[@type='submit']");
 

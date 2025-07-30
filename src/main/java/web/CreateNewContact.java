@@ -16,7 +16,7 @@ public class CreateNewContact {
 
     public NewContactCreator createNewContact (){
         fieldName.val("Автотест");
-        fieldPhone.val("78885554432");
+        fieldPhone.val("78877888432");
         fieldSberEmployee.shouldBe(Condition.enabled).click();
         fieldYesSberEmployee.shouldBe(Condition.enabled).click();
         buttonCreateNewContact.shouldBe(Condition.enabled).click();
