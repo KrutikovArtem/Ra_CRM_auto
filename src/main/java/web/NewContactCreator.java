@@ -9,7 +9,7 @@ public class NewContactCreator {
     SelenideElement chek = $x("//div[text()='Основное']/following-sibling::div/button");
 
 
-    public void chek(){
+    public void check(){
         chek.shouldBe(Condition.enabled);
     }
 }
