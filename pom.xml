@@ -20,7 +20,7 @@
         <selenide>6.19.1</selenide>
         <typesafe>1.4.1</typesafe>
         <json-schema-validator>4.3.3</json-schema-validator>
-        <lombok>1.18.26</lombok>
+        <!--        <lombok>1.18.30</lombok>-->
         <wiremock-jre8>2.32.0</wiremock-jre8>
         <wiremock-standalone>2.27.2</wiremock-standalone>
         <hibernate-core>5.5.6.Final</hibernate-core>
@@ -38,12 +38,6 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj-core}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenium}</version>
         </dependency>
 
         <dependency>
@@ -81,8 +75,6 @@
             <artifactId>selenide</artifactId>
             <version>${selenide}</version>
         </dependency>
-
-
 
         <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
@@ -124,7 +116,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok}</version>
+            <version>1.18.38</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -185,6 +178,32 @@
                 <configuration>
                     <source>11</source>
                     <target>11</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.30</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.14.0</version>
+                <configuration>
+                    <aspectLibraries>
+                        <aspectLibrary>
+                            <groupId>org.springframework</groupId>
+                            <artifactId>spring-aspects</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                    <complianceLevel>1.8</complianceLevel>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <Xset>
+                        <weaveJavaxPackages>true</weaveJavaxPackages>
+                    </Xset>
                 </configuration>
             </plugin>
             <plugin>
@@ -247,6 +266,4 @@
         </plugins>
         <testOutputDirectory>target/classes</testOutputDirectory>
     </build>
-
-
 </project>

@@ -1,7 +1,6 @@
 package page;
 
 import com.codeborne.selenide.SelenideElement;
-
 import static com.codeborne.selenide.Condition.visible;
 
 public class BasePage {
@@ -12,7 +11,7 @@ public class BasePage {
         try {
             return pageClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create page object", e);
+            throw new RuntimeException("Ошибка создания page object", e);
         }
     }
 

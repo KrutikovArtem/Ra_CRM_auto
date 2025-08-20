@@ -1,15 +1,13 @@
 package page.meetings;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import page.BasePage;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
-import static constatnts.Constants.INTEREST;
+import static com.codeborne.selenide.Selenide.sleep;
+import static constants.Constants.INTEREST;
 
 public class CreateMeetingPage extends BasePage {
 
@@ -32,15 +30,17 @@ public class CreateMeetingPage extends BasePage {
             "//div[contains(@class, 'ant-select-item-option') and contains(., '" + INTEREST + "')]");
     // локатор кнопки 'Создать дело'
     private static final SelenideElement CREATE_MEETING_BUTTON = $x("//button[.//span[text()='Создать дело']]");
-
+    // локатор кнопки "Назад" к отображению таблицы с делами
+    private static final SelenideElement BACK_MEETING_BUTTON = $x("//div[@class='ant-page-header-back']");
 
     @Step("Заполнение полей задачи и выбор кнопки 'Создать дело'")
-    public MeetingPage createNewMeeting() {
+    public void createNewMeeting() {
         choiceType();
         choiceCategory();
         setRelationWith();
         tapToButtonCreateMeeting();
-        return new MeetingPage();
+        sleep(2000);
+        BACK_MEETING_BUTTON.shouldBe(visible).click();
     }
 
     @Step("Выбор типа встречи")
