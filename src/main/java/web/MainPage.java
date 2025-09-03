@@ -1,24 +1,27 @@
 package web;
 
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
+import io.qameta.allure.Step;
+import page.BasePage;
 
-public class MainPage {
+public class MainPage extends BasePage{
 
     private SelenideElement hrefSearch = $x("//input[@placeholder='Поиск...']");
-    private SelenideElement hrefMeting = $x("//a[@href='/meetings']");
+    public static SelenideElement hrefMeeting = $x("//a[@href='/meetings']");
     private SelenideElement hrefContacts = $x("//a[@href='/contacts']");
     private SelenideElement hrefInterests = $x("//a[@href='/interests']");
 
-
-
-
     public ContactsPage openContactsPage(){
-        hrefContacts.shouldBe(Condition.visible).click();
+        hrefContacts.shouldBe(visible).click();
         return new ContactsPage();
     }
 
-
+    // проверяем отображение выбранной сущности и тапаем на неё
+    @Step("Открытие сущности {hrefMeeting}")
+    @Override
+    public <T extends BasePage> T openPage(SelenideElement pageElement, Class<T> pageClass) {
+        return super.openPage(pageElement, pageClass);
+    }
 }
