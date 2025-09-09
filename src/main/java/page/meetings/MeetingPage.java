@@ -16,7 +16,6 @@ public class MeetingPage extends BasePage {
     // локатор наименования дела в таблице с делами
     private static final SelenideElement MEETING_NAME = $x(".//tr[@class = 'clickable-JNIQAI']//td[@data-cell-name='topic']/div");
 
-
     @Step("Выбор кнопки 'Создать дело'")
     public CreateMeetingPage openCreateMeeting() {
         return openPage(CREATE_MEETING_BUTTON, CreateMeetingPage.class);

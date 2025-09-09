@@ -11,7 +11,7 @@ public class MainPage extends BasePage{
     private SelenideElement hrefSearch = $x("//input[@placeholder='Поиск...']");
     public static SelenideElement hrefMeeting = $x("//a[@href='/meetings']");
     private SelenideElement hrefContacts = $x("//a[@href='/contacts']");
-    private SelenideElement hrefInterests = $x("//a[@href='/interests']");
+    public static SelenideElement hrefInterests = $x("//a[@href='/interests']");
 
     public ContactsPage openContactsPage(){
         hrefContacts.shouldBe(visible).click();
@@ -19,7 +19,7 @@ public class MainPage extends BasePage{
     }
 
     // проверяем отображение выбранной сущности и тапаем на неё
-    @Step("Открытие сущности {hrefMeeting}")
+    @Step("Открытие сущности")
     @Override
     public <T extends BasePage> T openPage(SelenideElement pageElement, Class<T> pageClass) {
         return super.openPage(pageElement, pageClass);

@@ -40,7 +40,7 @@ public class CreateMeetingPage extends BasePage {
         setRelationWith();
         tapToButtonCreateMeeting();
         sleep(2000);
-        BACK_MEETING_BUTTON.shouldBe(visible).click();
+        tapToBackButton();
     }
 
     @Step("Выбор типа встречи")
@@ -82,6 +82,15 @@ public class CreateMeetingPage extends BasePage {
             CREATE_MEETING_BUTTON.shouldBe(visible).click();
         } catch (TimeoutException e) {
             throw new RuntimeException("Не удалось выбрать кнопку 'Создать дело' на странице создания дела", e);
+        }
+    }
+
+    @Step("Выбор кнопки возврата к таблице с делами")
+    public void tapToBackButton() {
+        try {
+            BACK_MEETING_BUTTON.shouldBe(visible).click();
+        } catch (TimeoutException e) {
+            throw new RuntimeException("Не удалось выбрать кнопку возврата к таблице с Лидами", e);
         }
     }
 }

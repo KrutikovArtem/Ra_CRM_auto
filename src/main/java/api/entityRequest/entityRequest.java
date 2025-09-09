@@ -1,4 +1,4 @@
-package api.meetingRequest;
+package api.entityRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MeetingRequest {
+public class entityRequest {
     private FilterRequest filter;
     private int page;
     private int size;

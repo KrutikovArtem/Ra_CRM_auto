@@ -1,4 +1,4 @@
-package api.meetingRequest;
+package api.entityRequest;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -2,17 +2,16 @@ import api.UserJSON;
 import io.qameta.allure.junit5.AllureJunit5;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import page.meetings.MeetingPage;
+import page.interests.InterestsPage;
 import rest.SupportREST;
 import web.MainPage;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static rest.SupportREST.DELETE_MEETING_API;
-import static rest.SupportREST.MEETING_LIST_API;
-import static web.MainPage.hrefMeeting;
+import static rest.SupportREST.*;
+import static web.MainPage.hrefInterests;
 
 @ExtendWith(AllureJunit5.class)
-public class TestCreateMeeting extends BaseSelenidePage {
+public class TestCreateInterest extends BaseSelenidePage {
 
     // инициализация REST запросов
     SupportREST supportREST = new SupportREST();
@@ -22,7 +21,8 @@ public class TestCreateMeeting extends BaseSelenidePage {
     private int id;
 
     @Test
-    public void meetingCreate() {
+    public void testInterestCreate() {
+
         // получение токена
         token = supportREST.getToken(new UserJSON(InitialData.REGISTRATION_EMAIL,
                 InitialData.REGISTRATION_PASSWORD,
@@ -30,16 +30,16 @@ public class TestCreateMeeting extends BaseSelenidePage {
 
         // создание экземпляра класса с главной страницей
         MainPage mainPage = new MainPage();
-        // открытие таблицы с делами
-        MeetingPage meetingPage = mainPage.openPage(hrefMeeting, MeetingPage.class);
-        // создание дела
-        meetingPage.openCreateMeeting().createNewMeeting();
+        // открытие таблицы с Лидами
+        InterestsPage interestsPage = mainPage.openPage(hrefInterests, InterestsPage.class);
+        // переход к созданию Лида (заполнение полей и выбор кнопки "Создать Лид")
+        interestsPage.openCreateInterests().createNewInterest();
         // получение id созданного дела
         id = supportREST.getId(token, MEETING_LIST_API);
 
-        assertAll("Созданное дело отображается в таблице",
-                () -> assertEquals(meetingPage.getIdMeeting(), String.valueOf(id)),
-                () -> assertEquals(meetingPage.getNameMeeting(), String.valueOf(supportREST.getName(token, MEETING_LIST_API)))
+        assertAll("Созданный Лид отображается в таблице",
+                () -> assertEquals(interestsPage.getIdInterest(), String.valueOf(id)),
+                () -> assertEquals(interestsPage.getNameInterest(), String.valueOf(supportREST.getName(token, INTEREST_LIST_API)))
         );
     }
 
