@@ -1,5 +1,7 @@
 import api.UserJSON;
+import com.codeborne.selenide.Selenide;
 import io.qameta.allure.junit5.AllureJunit5;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import page.meetings.MeetingPage;
@@ -43,10 +45,10 @@ public class TestCreateMeeting extends BaseSelenidePage {
         );
     }
 
-    @Override
+    @AfterEach
     public void tearDown() {
         // удаление дела
         supportREST.deleteEntity(token, id, DELETE_MEETING_API);
-        super.tearDown();
+        Selenide.closeWebDriver();
     }
 }

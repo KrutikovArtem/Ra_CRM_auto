@@ -21,6 +21,11 @@ abstract public class BaseSelenidePage {
         Configuration.headless = false;
         Configuration.timeout = 10000;
         Configuration.pageLoadStrategy = "normal";
+        signIn();
+    }
+
+    // авторизация пользователя
+    private void signIn() {
         AutorizationPage autorizationPage = new AutorizationPage(InitialData.AUTH_PAGE_URL);
         autorizationPage.authorization(InitialData.REGISTRATION_EMAIL, InitialData.REGISTRATION_PASSWORD);
     }
@@ -36,8 +41,8 @@ abstract public class BaseSelenidePage {
     /**
      * Выполнение метода после каждого закрытия тестов
      */
-    @AfterEach
-    public void tearDown() {
-        Selenide.closeWebDriver();
-    }
+//    @AfterEach
+//    public void tearDown() {
+//        Selenide.closeWebDriver();
+//    }
 }
