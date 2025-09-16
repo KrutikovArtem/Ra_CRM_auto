@@ -5,11 +5,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import page.meetings.MeetingPage;
-import support.SupportREST;
-import web.AutorizationPage;
+import rest.SupportREST;
 import web.MainPage;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static rest.SupportREST.DELETE_MEETING_API;
+import static rest.SupportREST.MEETING_LIST_API;
 import static web.MainPage.hrefMeeting;
 
 @ExtendWith(AllureJunit5.class)
@@ -18,7 +19,9 @@ public class TestCreateMeeting extends BaseSelenidePage {
     // инициализация REST запросов
     SupportREST supportREST = new SupportREST();
     // токен для авторизации по REST запросу
-    public String token;
+    private String token;
+    // id дела
+    private int id;
 
     @Test
     public void meetingCreate() {
@@ -27,28 +30,25 @@ public class TestCreateMeeting extends BaseSelenidePage {
                 InitialData.REGISTRATION_PASSWORD,
                 InitialData.REMEMBER_ME));
 
-        AutorizationPage autorizationPage = new AutorizationPage(InitialData.AUTH_PAGE_URL);
-        autorizationPage.authorization(InitialData.REGISTRATION_EMAIL, InitialData.REGISTRATION_PASSWORD);
-
-        // создаём экземпляр класса с главной страницей
+        // создание экземпляра класса с главной страницей
         MainPage mainPage = new MainPage();
-        // добираемся до страницы с делами
+        // открытие таблицы с делами
         MeetingPage meetingPage = mainPage.openPage(hrefMeeting, MeetingPage.class);
-        // создаём дело
+        // создание дела
         meetingPage.openCreateMeeting().createNewMeeting();
+        // получение id созданного дела
+        id = supportREST.getId(token, MEETING_LIST_API);
 
         assertAll("Созданное дело отображается в таблице",
-                () -> assertEquals(meetingPage.getIdMeeting(), String.valueOf(supportREST.getIdMeeting(token))),
-                () -> assertEquals(meetingPage.getNameMeeting(), String.valueOf(supportREST.getNameMeeting(token)))
+                () -> assertEquals(meetingPage.getIdMeeting(), String.valueOf(id)),
+                () -> assertEquals(meetingPage.getNameMeeting(), String.valueOf(supportREST.getName(token, MEETING_LIST_API)))
         );
     }
 
     @AfterEach
     public void tearDown() {
-        // получение id созданного дела
-        int id = supportREST.getIdMeeting(token);
         // удаление дела
-        supportREST.deleteMeeting(token, id);
+        supportREST.deleteEntity(token, id, DELETE_MEETING_API);
         Selenide.closeWebDriver();
     }
 }

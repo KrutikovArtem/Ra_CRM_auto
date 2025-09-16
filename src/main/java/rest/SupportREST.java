@@ -1,9 +1,9 @@
-package support;
+package rest;
 
 import api.UserJSON;
-import api.meetingRequest.FilterRequest;
-import api.meetingRequest.MeetingRequest;
-import api.meetingRequest.SortOption;
+import api.entityRequest.FilterRequest;
+import api.entityRequest.entityRequest;
+import api.entityRequest.SortOption;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import java.util.Collections;
@@ -17,6 +17,10 @@ public class SupportREST {
     public static final String MEETING_LIST_API = "/api/v1/meeting/list";
     // Endpoint удаления дела
     public static final String DELETE_MEETING_API = "/api/v1/meeting";
+    // Endpoint получения списка Лидов
+    public static final String INTEREST_LIST_API = "/api/v1/interest/list";
+    // Endpoint удаления Лида
+    public static final String DELETE_INTEREST_API = "/api/v1/interest";
 
     @Step("Получение токена авторизации")
     public String getToken(UserJSON creds) {
@@ -36,54 +40,54 @@ public class SupportREST {
         return response.jsonPath().getString("token");
     }
 
-    // получить айди созданного дела
-    public int getIdMeeting(String token) {
-        Response response = getMeetingList(token);
+    // получить айди созданной сущности
+    public int getId(String token, String locator) {
+        Response response = getList(token, locator);
         return response.path("data[0].id");
     }
 
-    // получить название дела
-    public String getNameMeeting(String token) {
-        Response response = getMeetingList(token);
+    // получить название сущности
+    public String getName(String token, String locator) {
+        Response response = getList(token, locator);
         return response.path("data[0].name");
     }
 
-    @Step("Получение списка дел")
-    public Response getMeetingList(String token) {
+    @Step("Получение списка сущностей")
+    public Response getList(String token, String locator) {
 
-        MeetingRequest meetingRequest = new MeetingRequest();
-        meetingRequest.setPage(1);
-        meetingRequest.setSize(10);
+        entityRequest entityRequest = new entityRequest();
+        entityRequest.setPage(1);
+        entityRequest.setSize(10);
 
         FilterRequest filter = new FilterRequest();
         filter.setMistaken(false);
-        meetingRequest.setFilter(filter);
+        entityRequest.setFilter(filter);
 
         SortOption sort = new SortOption();
         sort.setProperty("id");
         sort.setDirection("DESC");
-        meetingRequest.setSortBy(Collections.singletonList(sort));
+        entityRequest.setSortBy(Collections.singletonList(sort));
 
         Response response = given()
                 .header("Content-type", "application/json")
                 .header("authorization", "Bearer "+ token)
                 .log().all()
-                .body(meetingRequest)
+                .body(entityRequest)
                 .when()
-                .post(MEETING_LIST_API);
+                .post(locator);
         response.then().statusCode(200);
 
         return response;
     }
 
-    @Step("Удаление созданного дела")
-    public void deleteMeeting(String token, int idMeeting) {
+    @Step("Удаление созданной сущности")
+    public void deleteEntity(String token, int idEntity, String locator) {
         Response response = given()
                 .header("authorization", "Bearer "+ token)
                 .log().all()
-                .pathParams("id", idMeeting)
+                .pathParams("id", idEntity)
                 .when()
-                .delete(DELETE_MEETING_API + "/{id}");
+                .delete(locator + "/{id}");
 
         response.then()
                 .log().all()
