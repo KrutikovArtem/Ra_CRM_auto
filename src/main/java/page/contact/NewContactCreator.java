@@ -1,4 +1,4 @@
-package web;
+package page.contact;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;

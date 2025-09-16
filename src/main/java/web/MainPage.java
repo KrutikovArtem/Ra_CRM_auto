@@ -5,6 +5,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
 import io.qameta.allure.Step;
 import page.BasePage;
+import page.contact.ContactsPage;
 
 public class MainPage extends BasePage{
 
@@ -12,6 +13,7 @@ public class MainPage extends BasePage{
     public static SelenideElement hrefMeeting = $x("//a[@href='/meetings']");
     private SelenideElement hrefContacts = $x("//a[@href='/contacts']");
     public static SelenideElement hrefInterests = $x("//a[@href='/interests']");
+    public static SelenideElement DASHBOARDS = $x(".//a[text() = 'Дашборды']");
 
     public ContactsPage openContactsPage(){
         hrefContacts.shouldBe(visible).click();
