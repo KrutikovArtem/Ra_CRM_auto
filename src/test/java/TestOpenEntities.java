@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import page.BasePage;
 import page.contact.ContactsPage;
 import page.dashboard.DashboardPage;
+import page.deals.DealsPage;
 import page.interests.InterestsPage;
 import page.meetings.MeetingPage;
 import web.AutorizationPage;
@@ -42,8 +43,9 @@ public class TestOpenEntities {
         return Stream.of(
 //                arguments(DashboardPage.class, DASHBOARDS, "", "Создать дашборд", false),
 //                arguments(MeetingPage.class, MEETING, "Дела", "Создать Дело", true),
-                arguments(ContactsPage.class, CONTACTS, "Контакты", "Создать Контакт", true),
-                arguments(InterestsPage.class, INTERESTS, "Лиды", "Создать Лид", true)
+//                arguments(ContactsPage.class, CONTACTS, "Контакты", "Создать Контакт", true),
+                arguments(InterestsPage.class, INTERESTS, "Лиды", "Создать Лид", true),
+                arguments(DealsPage.class, DEALS, "Сделки", "", true)
         );
     }
 

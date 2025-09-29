@@ -14,6 +14,7 @@ public class MainPage extends BasePage{
     public static SelenideElement CONTACTS = $x("//a[text() = 'Контакты']");
     public static SelenideElement INTERESTS = $x("//a[text() = 'Лиды']");
     public static SelenideElement DASHBOARDS = $x(".//a[text() = 'Дашборды']");
+    public static SelenideElement DEALS = $x("//a[text() = 'Сделки']");
 
     public ContactsPage openContactsPage(){
         CONTACTS.shouldBe(visible).click();
