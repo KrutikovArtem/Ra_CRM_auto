@@ -10,7 +10,7 @@ import web.MainPage;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static rest.SupportREST.*;
-import static web.MainPage.hrefInterests;
+import static web.MainPage.INTERESTS;
 
 @ExtendWith(AllureJunit5.class)
 public class TestCreateInterest extends BaseSelenidePage {
@@ -33,7 +33,7 @@ public class TestCreateInterest extends BaseSelenidePage {
         // создание экземпляра класса с главной страницей
         MainPage mainPage = new MainPage();
         // открытие таблицы с Лидами
-        InterestsPage interestsPage = mainPage.openPage(hrefInterests, InterestsPage.class);
+        InterestsPage interestsPage = mainPage.openPage(INTERESTS, InterestsPage.class);
         // переход к созданию Лида (заполнение полей и выбор кнопки "Создать Лид")
         interestsPage.openCreateInterests().createNewInterest();
         // получение id созданного Лида

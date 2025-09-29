@@ -7,7 +7,4 @@ public class InitialData {
     public static final String REGISTRATION_EMAIL = "admin@admin.ru";
     public static final String REGISTRATION_PASSWORD = "GpDW5Z?mlJDY";
     public static final boolean REMEMBER_ME = true;
-
-    // цвет текста выбранной сущности
-    public static final String TEXT_COLOR_ENTITY = "#107f8c";
 }

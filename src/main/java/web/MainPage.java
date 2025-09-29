@@ -10,13 +10,13 @@ import page.contact.ContactsPage;
 public class MainPage extends BasePage{
 
     private SelenideElement hrefSearch = $x("//input[@placeholder='Поиск...']");
-    public static SelenideElement hrefMeeting = $x("//a[@href='/meetings']");
-    private SelenideElement hrefContacts = $x("//a[@href='/contacts']");
-    public static SelenideElement hrefInterests = $x("//a[@href='/interests']");
+    public static SelenideElement MEETING = $x(".//a[text() = 'Дела']");
+    public static SelenideElement CONTACTS = $x("//a[text() = 'Контакты']");
+    public static SelenideElement INTERESTS = $x("//a[text() = 'Лиды']");
     public static SelenideElement DASHBOARDS = $x(".//a[text() = 'Дашборды']");
 
     public ContactsPage openContactsPage(){
-        hrefContacts.shouldBe(visible).click();
+        CONTACTS.shouldBe(visible).click();
         return new ContactsPage();
     }
 
