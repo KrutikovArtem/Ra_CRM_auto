@@ -1,4 +1,4 @@
-package Browser;
+package browser;
 
 import com.codeborne.selenide.Configuration;
 import io.restassured.RestAssured;

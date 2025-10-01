@@ -8,13 +8,13 @@ import static locators.Locators.NAME_ON_TABLE;
 
 public class DealsPage extends BasePage {
 
-    @Step("Получение id созданного Лида из таблицы")
-    public String getIdInterest() {
+    @Step("Получение id созданной Сделки из таблицы")
+    public String getIdDeals() {
         return ID_ON_TABLE.shouldBe(visible).getText();
     }
 
-    @Step("Получение названия созданного Лида из таблицы")
-    public String getNameInterest() {
+    @Step("Получение названия созданной Сделки из таблицы")
+    public String getNameDeals() {
         return NAME_ON_TABLE.shouldBe(visible).getText();
     }
 }

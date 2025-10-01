@@ -1,4 +1,4 @@
-package SupportPage;
+package supportPage;
 
 public class ColorButtons {
 

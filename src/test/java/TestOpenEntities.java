@@ -1,22 +1,17 @@
 
-import Browser.ConfigurationBrowser;
-import com.codeborne.selenide.Configuration;
+import browser.ConfigurationBrowser;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import constants.Constants;
-import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import page.BasePage;
-import page.contact.ContactsPage;
-import page.dashboard.DashboardPage;
-import page.deals.DealsPage;
-import page.interests.InterestsPage;
-import page.meetings.MeetingPage;
+import page.addAgreements.AddAgreementsPage;
+import page.implemenationTerms.ImplementTermsPage;
+import page.mortgages.MortgagePage;
 import web.AutorizationPage;
 import web.MainPage;
 import java.util.stream.Stream;
@@ -28,7 +23,7 @@ import static web.MainPage.*;
 public class TestOpenEntities {
 
     // создание экземпляра класса с главной страницей
-    private static MainPage mainPage = new MainPage();
+    private static final MainPage mainPage = new MainPage();
 
     // авторизация 1 раз для всех тестов
     @BeforeAll
@@ -41,11 +36,14 @@ public class TestOpenEntities {
 
     static Stream<Arguments> entitiesData() {
         return Stream.of(
-//                arguments(DashboardPage.class, DASHBOARDS, "", "Создать дашборд", false),
-//                arguments(MeetingPage.class, MEETING, "Дела", "Создать Дело", true),
-//                arguments(ContactsPage.class, CONTACTS, "Контакты", "Создать Контакт", true),
-                arguments(InterestsPage.class, INTERESTS, "Лиды", "Создать Лид", true),
-                arguments(DealsPage.class, DEALS, "Сделки", "", true)
+//                arguments(DashboardPage.class, DASHBOARDS, "", "Создать дашборд", false, false),
+//                arguments(MeetingPage.class, MEETING, "Дела", "Создать Дело", true, false),
+//                arguments(ContactsPage.class, CONTACTS, "Контакты", "Создать Контакт", true, false),
+//                arguments(InterestsPage.class, INTERESTS, "Лиды", "Создать Лид", true, false),
+//                arguments(DealsPage.class, DEALS, "Сделки", "", true, false),
+//                arguments(AddAgreementsPage.class, ADD_AGREEMENTS, "Дополнительные соглашения", "", true, false),
+                arguments(ImplementTermsPage.class, IMPL_TERMS, "Условия реализации", "Добавить шаблон", true, true),
+                arguments(MortgagePage.class, MORTGAGE, "Ипотека", "", true, false)
         );
     }
 
@@ -55,7 +53,8 @@ public class TestOpenEntities {
                                    SelenideElement nameEntity,           // локатор сущности
                                    String entityTitle,                   // заголовок сущности
                                    String actionButton,                  // кнопка действия в сущности
-                                   boolean tableVisible) {               // есть ли таблица в сущности
+                                   boolean tableVisible,                 // есть ли таблица в сущности
+                                   boolean blocks) {                     // есть ли доп. блоки в сущности
 
         // выбор сущности
         BasePage openEntity = mainPage.openPage(nameEntity, pageClass);
@@ -63,12 +62,13 @@ public class TestOpenEntities {
         assertAll("Сущности открываются на просмотр и соответствуют ТЗ",
                 () -> assertEquals(entityTitle, openEntity.getTitle(entityTitle),
                         "Заголовок выбранной сущности = '"+ entityTitle +"'"),
-                () -> assertEquals(Constants.TEXT_COLOR_ENTITY, openEntity.getColorTextEntity(nameEntity),
-                        "Цвет кнопки выбранной сущности должен быть '"+ nameEntity +"'"),
                 () -> assertEquals(actionButton, openEntity.getCreateButtonText(actionButton),
-                        "Должна отображаеться кнопка действия '"+ actionButton +"'"),
+                        "Должна отображаться кнопка действия: '"+ actionButton +"'"),
                 () -> assertEquals(tableVisible, openEntity.tableIsVisible(),
-                        "Должно быть отображение таблицы на странице = '"+ tableVisible +"'")
+                        "Должно быть отображение таблицы на странице = '"+ tableVisible +"'"),
+                () -> assertEquals(Constants.TEXT_COLOR_ENTITY, openEntity.getColorTextEntity(nameEntity),
+                        "Цвет кнопки выбранной сущности должен быть = '"+ nameEntity +"'"),
+                () -> assertEquals(blocks, openEntity.tabsIsVisible(entityTitle))
         );
     }
 

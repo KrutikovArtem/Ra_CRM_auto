@@ -12,9 +12,4 @@ public class DashboardPage extends BasePage {
     public String getCreateButtonText(String createButton) {
         return super.getCreateButtonText(createButton);
     }
-
-    @Override
-    public String getColorTextEntity(SelenideElement locators) {
-        return super.getColorTextEntity(locators);
-    }
 }

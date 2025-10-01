@@ -1,5 +1,5 @@
 
-import Browser.ConfigurationBrowser;
+import browser.ConfigurationBrowser;
 import org.junit.jupiter.api.BeforeEach;
 import web.AutorizationPage;
 

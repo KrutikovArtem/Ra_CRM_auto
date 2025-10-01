@@ -7,7 +7,7 @@ import io.qameta.allure.Step;
 import page.BasePage;
 import page.contact.ContactsPage;
 
-public class MainPage extends BasePage{
+public class MainPage extends BasePage {
 
     private SelenideElement hrefSearch = $x("//input[@placeholder='Поиск...']");
     public static SelenideElement MEETING = $x(".//a[text() = 'Дела']");
@@ -15,6 +15,9 @@ public class MainPage extends BasePage{
     public static SelenideElement INTERESTS = $x("//a[text() = 'Лиды']");
     public static SelenideElement DASHBOARDS = $x(".//a[text() = 'Дашборды']");
     public static SelenideElement DEALS = $x("//a[text() = 'Сделки']");
+    public static SelenideElement ADD_AGREEMENTS = $x("//a[text() = 'Доп. соглашения']");
+    public static SelenideElement IMPL_TERMS = $x("//a[text() = 'Конструктор УР']");
+    public static SelenideElement MORTGAGE = $x("//a[text() = 'Ипотека']");
 
     public ContactsPage openContactsPage(){
         CONTACTS.shouldBe(visible).click();
