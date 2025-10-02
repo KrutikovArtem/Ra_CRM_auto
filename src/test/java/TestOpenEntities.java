@@ -10,8 +10,17 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import page.BasePage;
 import page.addAgreements.AddAgreementsPage;
+import page.contact.ContactsPage;
+import page.dashboard.DashboardPage;
+import page.deals.DealsPage;
 import page.implemenationTerms.ImplementTermsPage;
+import page.interests.InterestsPage;
+import page.meetings.MeetingPage;
 import page.mortgages.MortgagePage;
+import page.sbercity.SberCity;
+import page.scoring.Scoring;
+import page.settlements.SettlementsPage;
+import page.trade_in.TradeIn;
 import web.AutorizationPage;
 import web.MainPage;
 import java.util.stream.Stream;
@@ -42,19 +51,23 @@ public class TestOpenEntities {
 //                arguments(InterestsPage.class, INTERESTS, "Лиды", "Создать Лид", true, false),
 //                arguments(DealsPage.class, DEALS, "Сделки", "", true, false),
 //                arguments(AddAgreementsPage.class, ADD_AGREEMENTS, "Дополнительные соглашения", "", true, false),
-                arguments(ImplementTermsPage.class, IMPL_TERMS, "Условия реализации", "Добавить шаблон", true, true),
-                arguments(MortgagePage.class, MORTGAGE, "Ипотека", "", true, false)
+//                arguments(ImplementTermsPage.class, IMPL_TERMS, "Условия реализации", "Добавить шаблон", true, true),
+//                arguments(MortgagePage.class, MORTGAGE, "Ипотека", "", true, false),
+                arguments(SettlementsPage.class, SETTLEMENTS, "Заселение", "", true, true),
+                arguments(TradeIn.class, TRADE_IN, "Трейд-ин", "", true, false),
+                arguments(SberCity.class, SBER_CITY, "СберСити+", "", true, false),
+                arguments(Scoring.class, SCORING, "Скоринг", "Создать Скоринг", true, false)
         );
     }
 
     @ParameterizedTest
     @MethodSource("entitiesData")
-    public void testInterestCreate(Class<? extends BasePage> pageClass,  // класс сущности
-                                   SelenideElement nameEntity,           // локатор сущности
-                                   String entityTitle,                   // заголовок сущности
-                                   String actionButton,                  // кнопка действия в сущности
-                                   boolean tableVisible,                 // есть ли таблица в сущности
-                                   boolean blocks) {                     // есть ли доп. блоки в сущности
+    public void testOpenEntities(Class<? extends BasePage> pageClass,  // класс сущности
+                                 SelenideElement nameEntity,           // локатор сущности
+                                 String entityTitle,                   // заголовок сущности
+                                 String actionButton,                  // кнопка действия в сущности
+                                 boolean tableVisible,                 // есть ли таблица в сущности
+                                 boolean blocks) {                     // есть ли доп. блоки в сущности
 
         // выбор сущности
         BasePage openEntity = mainPage.openPage(nameEntity, pageClass);

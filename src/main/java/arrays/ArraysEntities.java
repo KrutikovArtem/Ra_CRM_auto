@@ -1,11 +1,19 @@
 package arrays;
 
+import com.codeborne.selenide.SelenideElement;
+
+import static web.MainPage.*;
+
 public class ArraysEntities {
-    // массив с сущностями раздела "Сервисы"
-//    public static EntityAndDescription[] serviceEntities = {TRADE_IN, SBERCITY_PLUS, SCORING, INFOMETRICS};
 
     // массив с блоками сущности "Условия реализации"
     public static String[] tabsImplTerms = {"Рассрочка", "Ипотека", "Льгота", "Преимущество", "Бронирование"};
+
+    // массив сущностей имеющих вкладки
+    public static String[] entitiesWithTabs = {"Заселение", "Инфометрика", "Импорт ОН", "Календарь"};
+
+    // массив селенид элементов в сущности "Сервисы"
+    public static SelenideElement[] serviceEntities = {TRADE_IN, SBER_CITY, SCORING, INFOMETRICS};
 
     // массив с блоками сущности "Заселение"
     public static String[] tabsSettlements = {"Заселение", "Шахматка", "График дежурств", "Календарь"};

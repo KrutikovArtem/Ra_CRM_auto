@@ -6,12 +6,15 @@ import locators.Locators;
 import page.openEntities.OpenEntitiesPage;
 
 import java.time.Duration;
+import java.util.Arrays;
 
-import static arrays.ArraysEntities.tabsImplTerms;
+import static arrays.ArraysEntities.*;
+import static com.codeborne.selenide.Condition.attribute;
 import static java.lang.Thread.sleep;
 import static supportPage.ColorButtons.convertRgbaToHex;
 import static com.codeborne.selenide.Condition.visible;
 import static locators.Locators.UNIVERSAL_TABLE;
+import static web.MainPage.SERVICES;
 
 public class BasePage {
 
@@ -29,6 +32,30 @@ public class BasePage {
 
     // поиск элемента и тап по нему
     public void tapToEntity(SelenideElement pageElement) {
+        // преобразование селенид элемента в строку
+        String pageElementLocator = pageElement.getSearchCriteria();
+
+        // проходит по циклу и возвращает булевое значение при совпадении с сущностью из сервиса
+        boolean isService = Arrays.stream(serviceEntities)
+                .anyMatch(serviceElement ->
+                        serviceElement.getSearchCriteria().equals(pageElementLocator)
+                );
+
+        if (isService) {
+            if (!openEntitiesPage.isButtonExpanded(SERVICES)) {
+                System.out.println("Сервисы открыты - " + openEntitiesPage.isButtonExpanded(SERVICES));
+                // если это сервис, то открывается меню "Сервисы"
+                SERVICES.shouldBe(visible, Duration.ofSeconds(3)).click();
+                System.out.println("Открыли меню 'Сервисы'");
+                // Ждем пока меню раскроется (проверяем атрибут)
+                SERVICES.shouldHave(attribute("aria-expanded", "true"), Duration.ofSeconds(2));
+                pageElement.shouldBe(visible).click();
+            } else {
+                // выбор сущности
+                pageElement.shouldBe(visible).click();
+            }
+        }
+
         pageElement.shouldBe(visible).click();
     }
 
@@ -48,10 +75,25 @@ public class BasePage {
 
     @Step("Получение заголовка выбранной сущности")
     public String getTitle(String title) {
-        if (title != null && !title.isBlank()) {
-            return Locators.textTitle(title).shouldBe(visible).getText();
+        if (title == null || title.isBlank()) {
+            return "";
         }
-        return "";
+
+        for (int i = 0; i < entitiesWithTabs.length; i++) {
+            if (title.equals(entitiesWithTabs[i])) {
+                return entitiesWithTabs[i];
+            }
+        }
+
+        // поиск через локатор с таймаутом
+        try {
+            return Locators.textTitle(title)
+                    .shouldBe(visible, Duration.ofSeconds(5))
+                    .getText();
+        } catch (Exception e) {
+            System.out.println("Элемент не найден: " + e.getMessage());
+            return "";
+        }
     }
 
     @Step("Возвращает наличие таблицы")
@@ -64,17 +106,22 @@ public class BasePage {
         }
     }
 
-    @Step("Возвращает открытие блоков в сущности 'Конструктор УР'")
+    @Step("Возвращает открытие блоков в сущности")
     public boolean tabsIsVisible(String title) {
-
         if (title == null || title.isBlank()) {
             System.out.println("Заголовок пустой или null");
             return false;
         }
 
+        for (int i = 0; i < entitiesWithTabs.length - 1; i++) {
+            if (title.equals(entitiesWithTabs[i])) {
+                return openEntitiesPage.openTabs(tabsSettlements);
+            }
+        }
+
         if (title.equals("Условия реализации")) {
             System.out.println("=== Начало проверки вкладок '" + title + "' ===");
-            // Проверяем основные вкладки
+            // проверка основной вкладки
             boolean mainBlocksWork = openEntitiesPage.openBlocks(tabsImplTerms);
             System.out.println("Основные вкладки работают: " + mainBlocksWork);
 
@@ -83,7 +130,7 @@ public class BasePage {
                 return false;
             }
 
-            // Переключаемся в архив
+            // переключение в архив
             System.out.println("=== Переключение в Архив ===");
             try {
                 SelenideElement archiveTab = Locators.blocksTitle("Архив");

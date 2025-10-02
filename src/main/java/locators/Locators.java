@@ -1,7 +1,6 @@
 package locators;
 
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class Locators {
@@ -33,5 +32,10 @@ public class Locators {
     // локатор блоков в сущности
     public static SelenideElement blocksTitle(String locator) {
         return $x(".//span[text() = '" + locator + "']");
+    }
+
+    // локатор вкладки в сущности
+    public static SelenideElement tabsInEntity(String locator) {
+        return $x(".//div[text() = '" + locator + "']");
     }
 }

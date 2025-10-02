@@ -18,6 +18,12 @@ public class MainPage extends BasePage {
     public static SelenideElement ADD_AGREEMENTS = $x("//a[text() = 'Доп. соглашения']");
     public static SelenideElement IMPL_TERMS = $x("//a[text() = 'Конструктор УР']");
     public static SelenideElement MORTGAGE = $x("//a[text() = 'Ипотека']");
+    public static SelenideElement SETTLEMENTS = $x("//a[text() = 'Заселение']");
+    public static SelenideElement SERVICES = $x(".//span[text() = 'Сервисы']");
+    public static SelenideElement TRADE_IN = $x(".//a[text() = 'Трейд-ин']");
+    public static SelenideElement SBER_CITY = $x(".//a[text() = 'Трейд-ин']");
+    public static SelenideElement SCORING = $x(".//a[text() = 'Скоринг']");
+    public static SelenideElement INFOMETRICS = $x(".//a[text() = 'Инфометрика']");
 
     public ContactsPage openContactsPage(){
         CONTACTS.shouldBe(visible).click();

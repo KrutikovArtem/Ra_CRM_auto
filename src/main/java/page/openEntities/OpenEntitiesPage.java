@@ -48,20 +48,19 @@ public class OpenEntitiesPage {
         return true;
     }
 
-    public boolean openTabs(String[] tabs, String tabSelection) {
-        if (tabSelection.equals("Условия реализации")) {
+    public boolean openTabs(String[] tabs) {
             try {
                 for (int i = 0; i < tabs.length; i++) {
-                    // проверяем текущую вкладку
-                    SelenideElement currentTab = Locators.blocksTitle(tabs[i]).shouldBe(visible);
-                    // если вкладка активна, переключаемся на следующую
+                    // проверка текущей вкладки
+                    SelenideElement currentTab = Locators.tabsInEntity(tabs[i]).shouldBe(visible);
+                    // если вкладка активна, переключение на следующую
                     if (Boolean.TRUE.equals(tabSelected(currentTab, TAP_SELECTED_FLAG))) {
                         if (i < tabs.length - 1) {
-                            SelenideElement nextLocator = Locators.blocksTitle(tabs[i + 1]);
+                            SelenideElement nextLocator = Locators.tabsInEntity(tabs[i + 1]);
                             nextLocator.shouldBe(visible).click();
                             System.out.println("Успешно переключено на вкладку: " + tabs[i + 1]);
                         }
-                        // проверяем, достигли ли последней вкладки
+                        // проверка, достигли ли последней вкладки
                         if (i == tabs.length - 1) {
                             System.out.println(tabSelected(currentTab, TAP_SELECTED_FLAG));
                             return tabSelected(currentTab, TAP_SELECTED_FLAG);
@@ -71,7 +70,6 @@ public class OpenEntitiesPage {
             } catch (Exception e) {
                 System.err.println("Критическая ошибка: " + e.getMessage());
             }
-        }
         return false;
     }
 
@@ -88,5 +86,9 @@ public class OpenEntitiesPage {
     // проверка, что блок выбран (присутствует нижнее подчёркивание выбранного значения)
     public static Boolean tabSelected(SelenideElement element, String selectName) {
         return Boolean.parseBoolean(element.getAttribute(selectName));
+    }
+
+    public boolean isButtonExpanded(SelenideElement button) {
+        return "true".equals(button.getAttribute("aria-expanded"));
     }
 }
