@@ -33,7 +33,7 @@ public class TestCreateInterest extends BaseSelenidePage {
         // создание экземпляра класса с главной страницей
         MainPage mainPage = new MainPage();
         // открытие таблицы с Лидами
-        InterestsPage interestsPage = mainPage.openPage(INTERESTS, InterestsPage.class);
+        InterestsPage interestsPage = mainPage.openPage("Лиды", InterestsPage.class);
         // переход к созданию Лида (заполнение полей и выбор кнопки "Создать Лид")
         interestsPage.openCreateInterests().createNewInterest();
         // получение id созданного Лида

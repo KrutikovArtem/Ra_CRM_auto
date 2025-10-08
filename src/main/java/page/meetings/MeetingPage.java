@@ -17,7 +17,7 @@ public class MeetingPage extends BasePage {
 
     @Step("Выбор кнопки 'Создать дело'")
     public CreateMeetingPage openCreateMeeting() {
-        return openPage(CREATE_MEETING_BUTTON, CreateMeetingPage.class);
+        return openPage("Создать Дело", CreateMeetingPage.class);
     }
 
     @Step("Достаём текст названия созданного дела")

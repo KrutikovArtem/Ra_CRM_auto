@@ -2,5 +2,5 @@ package page.scoring;
 
 import page.BasePage;
 
-public class Scoring extends BasePage {
+public class ScoringPage extends BasePage {
 }

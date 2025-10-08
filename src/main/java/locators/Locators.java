@@ -24,6 +24,11 @@ public class Locators {
         return $x(".//span[text() = '" + locator + "']");
     }
 
+    // локатор изменяемого заголовка сущности
+    public static SelenideElement variableTitle(String locator) {
+        return $x(".//div[text() = '" + locator + "']");
+    }
+
     // локатор сущности слева СРМ
     public static SelenideElement nameEntity(String locator) {
         return $x(".//a[text() = '" + locator + "']");

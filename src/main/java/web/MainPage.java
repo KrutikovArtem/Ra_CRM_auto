@@ -19,11 +19,14 @@ public class MainPage extends BasePage {
     public static SelenideElement IMPL_TERMS = $x("//a[text() = 'Конструктор УР']");
     public static SelenideElement MORTGAGE = $x("//a[text() = 'Ипотека']");
     public static SelenideElement SETTLEMENTS = $x("//a[text() = 'Заселение']");
-    public static SelenideElement SERVICES = $x(".//span[text() = 'Сервисы']");
+    public static SelenideElement SERVICES = $x("//div[contains(@data-menu-id, 'Сервисы')]");
     public static SelenideElement TRADE_IN = $x(".//a[text() = 'Трейд-ин']");
-    public static SelenideElement SBER_CITY = $x(".//a[text() = 'Трейд-ин']");
+    public static SelenideElement SBER_CITY = $x(".//a[text() = 'СберСити+']");
     public static SelenideElement SCORING = $x(".//a[text() = 'Скоринг']");
     public static SelenideElement INFOMETRICS = $x(".//a[text() = 'Инфометрика']");
+    public static SelenideElement CATALOG = $x(".//a[text() = 'Каталог']");
+    public static SelenideElement IMPORT = $x(".//a[text() = 'Импорт ОН']");
+    public static SelenideElement AGREEMENTS = $x(".//a[text() = 'Согласования']");
 
     public ContactsPage openContactsPage(){
         CONTACTS.shouldBe(visible).click();
@@ -33,7 +36,7 @@ public class MainPage extends BasePage {
     // проверяем отображение выбранной сущности и тапаем на неё
     @Step("Открытие сущности")
     @Override
-    public <T extends BasePage> T openPage(SelenideElement pageElement, Class<T> pageClass) {
+    public <T extends BasePage> T openPage(String pageElement, Class<T> pageClass) {
         return super.openPage(pageElement, pageClass);
     }
 }

@@ -21,7 +21,7 @@ public class AutorizationPage {
         inputPassword.val(password);
         buttonSubmit.click();
 
-        sleep(5000);
+//        sleep(2000);
         if (SERVER_ERROR.isDisplayed()) {
             // в случае появлении ошибки ожидаем до 5 секунд, проверяя каждые 500мс, исчезла ли ошибка
             Wait().withTimeout(Duration.ofSeconds(5))

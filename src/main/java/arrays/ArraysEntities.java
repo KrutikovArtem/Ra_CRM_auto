@@ -9,8 +9,10 @@ public class ArraysEntities {
     // массив с блоками сущности "Условия реализации"
     public static String[] tabsImplTerms = {"Рассрочка", "Ипотека", "Льгота", "Преимущество", "Бронирование"};
 
-    // массив сущностей имеющих вкладки
-    public static String[] entitiesWithTabs = {"Заселение", "Инфометрика", "Импорт ОН", "Календарь"};
+    // массив сущностей НЕ имеющих статического заголовка
+    public static String[] notStaticEntityTabs = {"Заселение", "CSI Ипотека", "Импорт ОН", "Календарь"};
+
+    public static String[] entitiesWithTabs = {"Заселение", "CSI Ипотека", "Импорт ОН", "Календарь"};
 
     // массив селенид элементов в сущности "Сервисы"
     public static SelenideElement[] serviceEntities = {TRADE_IN, SBER_CITY, SCORING, INFOMETRICS};

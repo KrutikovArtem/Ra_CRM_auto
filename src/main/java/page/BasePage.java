@@ -9,8 +9,8 @@ import java.time.Duration;
 import java.util.Arrays;
 
 import static arrays.ArraysEntities.*;
-import static com.codeborne.selenide.Condition.attribute;
 import static java.lang.Thread.sleep;
+import static locators.Locators.nameEntity;
 import static supportPage.ColorButtons.convertRgbaToHex;
 import static com.codeborne.selenide.Condition.visible;
 import static locators.Locators.UNIVERSAL_TABLE;
@@ -18,10 +18,10 @@ import static web.MainPage.SERVICES;
 
 public class BasePage {
 
-    private OpenEntitiesPage openEntitiesPage = new OpenEntitiesPage();
+    private final OpenEntitiesPage openEntitiesPage = new OpenEntitiesPage();
 
     // универсальный метод, который проверяет отображение кнопки, выбирает её и возвращает необходимый класс
-    public <T extends BasePage> T openPage(SelenideElement pageElement, Class<T> pageClass) {
+    public <T extends BasePage> T openPage(String pageElement, Class<T> pageClass) {
         tapToEntity(pageElement);
         try {
             return pageClass.getDeclaredConstructor().newInstance();
@@ -30,38 +30,38 @@ public class BasePage {
         }
     }
 
-    // поиск элемента и тап по нему
-    public void tapToEntity(SelenideElement pageElement) {
+    @Step("Поиск элемента сущности слева и тап по нему")
+    public void tapToEntity(String pageElement) {
         // преобразование селенид элемента в строку
-        String pageElementLocator = pageElement.getSearchCriteria();
-
+        String pageElementLocator = nameEntity(pageElement).getSearchCriteria();
         // проходит по циклу и возвращает булевое значение при совпадении с сущностью из сервиса
         boolean isService = Arrays.stream(serviceEntities)
                 .anyMatch(serviceElement ->
                         serviceElement.getSearchCriteria().equals(pageElementLocator)
                 );
+        System.out.println("Это сервис - " + isService);
 
+        // если это сервис
         if (isService) {
-            if (!openEntitiesPage.isButtonExpanded(SERVICES)) {
-                System.out.println("Сервисы открыты - " + openEntitiesPage.isButtonExpanded(SERVICES));
+            // получаем значение открты ли сервисы
+            boolean statusService = openEntitiesPage.isButtonExpanded(SERVICES);
+            System.out.println("Сервисы открыты - " + statusService);
+
+            if (!statusService) {
                 // если это сервис, то открывается меню "Сервисы"
                 SERVICES.shouldBe(visible, Duration.ofSeconds(3)).click();
                 System.out.println("Открыли меню 'Сервисы'");
-                // Ждем пока меню раскроется (проверяем атрибут)
-                SERVICES.shouldHave(attribute("aria-expanded", "true"), Duration.ofSeconds(2));
-                pageElement.shouldBe(visible).click();
-            } else {
-                // выбор сущности
-                pageElement.shouldBe(visible).click();
             }
+            // выбор сущности
+            nameEntity(pageElement).shouldBe(visible).click();
+        } else {
+            nameEntity(pageElement).shouldBe(visible).click();
         }
-
-        pageElement.shouldBe(visible).click();
     }
 
     @Step("Проверка, что выбранная сущность выделена")
-    public static String getColorTextEntity(SelenideElement locators) {
-        String textColorRGBA = locators.shouldBe(visible, Duration.ofSeconds(3)).getCssValue("color");
+    public static String getColorTextEntity(String locators) {
+        String textColorRGBA = nameEntity(locators).shouldBe(visible, Duration.ofSeconds(3)).getCssValue("color");
         return convertRgbaToHex(textColorRGBA);
     }
 
@@ -79,19 +79,34 @@ public class BasePage {
             return "";
         }
 
-        for (int i = 0; i < entitiesWithTabs.length; i++) {
-            if (title.equals(entitiesWithTabs[i])) {
-                return entitiesWithTabs[i];
-            }
-        }
+        System.out.println("Название вкладки: " + title);
 
-        // поиск через локатор с таймаутом
+        // есть ли сущность в entitiesWithTabs (сущности с вкладками)
+        boolean isEntityWithTab = Arrays.stream(notStaticEntityTabs)
+                .anyMatch(entity -> entity.trim().equalsIgnoreCase(title.trim())
+                );
+
+        System.out.println("Сущность имеет вкладки: " + isEntityWithTab);
+
         try {
-            return Locators.textTitle(title)
-                    .shouldBe(visible, Duration.ofSeconds(5))
-                    .getText();
+            if (isEntityWithTab) {
+                System.out.println("Изменяемая сущность: " + title);
+                // для сущностей с табами используем variableTitle
+                System.out.println(Locators.variableTitle(title)
+                        .shouldBe(visible, Duration.ofSeconds(3))
+                        .getText());
+                return Locators.variableTitle(title)
+                        .shouldBe(visible, Duration.ofSeconds(3))
+                        .getText();
+            } else {
+                System.out.println("Не изменяемая сущность: " + title);
+                // для остальных сущностей используем textTitle
+                return Locators.textTitle(title)
+                        .shouldBe(visible, Duration.ofSeconds(5))
+                        .getText();
+            }
         } catch (Exception e) {
-            System.out.println("Элемент не найден: " + e.getMessage());
+            System.out.println("Элемент '" + title + "' не найден: " + e.getMessage());
             return "";
         }
     }
@@ -99,7 +114,7 @@ public class BasePage {
     @Step("Возвращает наличие таблицы")
     public static boolean tableIsVisible() {
         try {
-            UNIVERSAL_TABLE.shouldBe(visible, Duration.ofSeconds(5));
+            UNIVERSAL_TABLE.shouldBe(visible, Duration.ofSeconds(10));
             return true;
         } catch (Throwable e) {
             return false;
@@ -113,9 +128,18 @@ public class BasePage {
             return false;
         }
 
-        for (int i = 0; i < entitiesWithTabs.length - 1; i++) {
-            if (title.equals(entitiesWithTabs[i])) {
-                return openEntitiesPage.openTabs(tabsSettlements);
+        for (String entity : entitiesWithTabs) {
+            if (title.equals(entity)) {
+                if (title.equals("Заселение")) {
+                    return openEntitiesPage.openTabs(tabsSettlements);
+                } else if (title.equals("CSI Ипотека")) {
+                    System.out.println(tabsInfometrics[0]);
+                    return openEntitiesPage.openTabs(tabsInfometrics);
+                } else if (title.equals("Импорт ОН")) {
+                    return openEntitiesPage.openTabs(tabsImport);
+                } else if (title.equals("Календарь")) {
+                    return openEntitiesPage.openTabs(tabsCalendar);
+                }
             }
         }
 

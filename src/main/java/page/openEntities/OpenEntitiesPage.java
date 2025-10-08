@@ -3,9 +3,7 @@ package page.openEntities;
 import com.codeborne.selenide.SelenideElement;
 import constants.Constants;
 import locators.Locators;
-
 import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
 import static constants.Constants.TAP_SELECTED_FLAG;
 import static java.lang.Thread.sleep;
@@ -21,7 +19,7 @@ public class OpenEntitiesPage {
                     SelenideElement currentTab = Locators.blocksTitle(tabs[i]).shouldBe(visible, Duration.ofSeconds(5));
                     currentTab.click(); // клик по первому блоку
 
-                    boolean isActive = blockIsVisible(currentTab);
+                    boolean isActive = blockIsVisible(tabs[i]);
                     // если вкладка активна и загружается таблица, переключаемся на следующую
                     if (isActive) {
                         System.out.println("Вкладка " + tabs[i] + " активна");
@@ -30,10 +28,10 @@ public class OpenEntitiesPage {
                             SelenideElement nextLocator = Locators.blocksTitle(tabs[i + 1]);
                             nextLocator.shouldBe(visible, Duration.ofSeconds(5)).click();
                             System.out.println("Успешно переключено на вкладку: " + tabs[i + 1]);
-                            sleep(1000);
+                            sleep(500);
                         } else {
                             // это последняя вкладка - возвращает результат
-                            boolean lastTabActive = blockIsVisible(currentTab);
+                            boolean lastTabActive = blockIsVisible(tabs[i]);
                             System.out.println("Последняя вкладка активна: " + lastTabActive);
                             return lastTabActive;
                         }
@@ -57,6 +55,9 @@ public class OpenEntitiesPage {
                     if (Boolean.TRUE.equals(tabSelected(currentTab, TAP_SELECTED_FLAG))) {
                         if (i < tabs.length - 1) {
                             SelenideElement nextLocator = Locators.tabsInEntity(tabs[i + 1]);
+
+                            /// === ДОБАВИТЬ ПРОВЕРКУ НАЛИЧИЯ ТАБЛИЦЫ ИЛИ ДРУГОГО ПРИЗНАКА !!! ===
+
                             nextLocator.shouldBe(visible).click();
                             System.out.println("Успешно переключено на вкладку: " + tabs[i + 1]);
                         }
@@ -74,7 +75,7 @@ public class OpenEntitiesPage {
     }
 
     // метод, который проверяет выделен ли выбранный блок и загружена ли таблица
-    private Boolean blockIsVisible(SelenideElement locators) {
+    private Boolean blockIsVisible(String locators) {
         String currentColor = getColorTextEntity(locators);
         System.out.println(currentColor);
         if (Constants.TEXT_COLOR_BLOCK.equals(currentColor)) {
@@ -88,6 +89,7 @@ public class OpenEntitiesPage {
         return Boolean.parseBoolean(element.getAttribute(selectName));
     }
 
+    // метод возвращает значение выбранной или нет сущности по признаку aria-expanded (например Сервисы)
     public boolean isButtonExpanded(SelenideElement button) {
         return "true".equals(button.getAttribute("aria-expanded"));
     }

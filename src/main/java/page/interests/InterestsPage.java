@@ -15,7 +15,7 @@ public class InterestsPage extends BasePage {
 
     @Step("Выбор кнопки 'Создать Лид'")
     public CreateInterestsPage openCreateInterests() {
-        return openPage(CREATE_INTERESTS_BUTTON, CreateInterestsPage.class);
+        return openPage("Создать Лид", CreateInterestsPage.class);
     }
 
     @Step("Получение id созданного Лида из таблицы")

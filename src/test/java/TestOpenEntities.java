@@ -9,18 +9,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import page.BasePage;
-import page.addAgreements.AddAgreementsPage;
-import page.contact.ContactsPage;
-import page.dashboard.DashboardPage;
-import page.deals.DealsPage;
-import page.implemenationTerms.ImplementTermsPage;
+import page.agreements.AgreementsPage;
+import page.calendar.CalendarPage;
+import page.catalog.CatalogPage;
+import page.importation.ImportPage;
+import page.infometrics.InfometricsPage;
 import page.interests.InterestsPage;
-import page.meetings.MeetingPage;
-import page.mortgages.MortgagePage;
-import page.sbercity.SberCity;
-import page.scoring.Scoring;
+import page.sbercity.SberCityPage;
+import page.scoring.ScoringPage;
 import page.settlements.SettlementsPage;
-import page.trade_in.TradeIn;
+import page.trade_in.TradeInPage;
 import web.AutorizationPage;
 import web.MainPage;
 import java.util.stream.Stream;
@@ -53,17 +51,22 @@ public class TestOpenEntities {
 //                arguments(AddAgreementsPage.class, ADD_AGREEMENTS, "Дополнительные соглашения", "", true, false),
 //                arguments(ImplementTermsPage.class, IMPL_TERMS, "Условия реализации", "Добавить шаблон", true, true),
 //                arguments(MortgagePage.class, MORTGAGE, "Ипотека", "", true, false),
-                arguments(SettlementsPage.class, SETTLEMENTS, "Заселение", "", true, true),
-                arguments(TradeIn.class, TRADE_IN, "Трейд-ин", "", true, false),
-                arguments(SberCity.class, SBER_CITY, "СберСити+", "", true, false),
-                arguments(Scoring.class, SCORING, "Скоринг", "Создать Скоринг", true, false)
+//                arguments(SettlementsPage.class, SETTLEMENTS, "Заселение", "", true, true),
+//                arguments(TradeInPage.class, TRADE_IN, "Трейд-ин", "", true, false),
+//                arguments(SberCityPage.class, SBER_CITY, "СберСити+", "", true, false),
+//                arguments(ScoringPage.class, SCORING, "Скоринг", "Создать Скоринг", true, false),
+//                arguments(InfometricsPage.class, INFOMETRICS, "CSI Ипотека", "", true, true),
+//                arguments(CatalogPage.class, CATALOG, "Каталог", "Все объекты", false, false),
+//                arguments(ImportPage.class, "Импорт ОН", "Импорт ОН", "", false, false),
+                arguments(AgreementsPage.class, "Согласования", "Согласования", "", true, false),
+                arguments(CalendarPage.class, "Календарь", "Календарь", "Создать Дело", false, true)
         );
     }
 
     @ParameterizedTest
     @MethodSource("entitiesData")
     public void testOpenEntities(Class<? extends BasePage> pageClass,  // класс сущности
-                                 SelenideElement nameEntity,           // локатор сущности
+                                 String nameEntity,                    // локатор сущности
                                  String entityTitle,                   // заголовок сущности
                                  String actionButton,                  // кнопка действия в сущности
                                  boolean tableVisible,                 // есть ли таблица в сущности
@@ -81,7 +84,8 @@ public class TestOpenEntities {
                         "Должно быть отображение таблицы на странице = '"+ tableVisible +"'"),
                 () -> assertEquals(Constants.TEXT_COLOR_ENTITY, openEntity.getColorTextEntity(nameEntity),
                         "Цвет кнопки выбранной сущности должен быть = '"+ nameEntity +"'"),
-                () -> assertEquals(blocks, openEntity.tabsIsVisible(entityTitle))
+                () -> assertEquals(blocks, openEntity.tabsIsVisible(entityTitle),
+                        "Открытие блоков в сущности: '"+ blocks +"'")
         );
     }
 

@@ -2,5 +2,5 @@ package page.sbercity;
 
 import page.BasePage;
 
-public class SberCity extends BasePage {
+public class SberCityPage extends BasePage {
 }
