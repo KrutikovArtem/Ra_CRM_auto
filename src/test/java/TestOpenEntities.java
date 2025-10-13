@@ -9,12 +9,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import page.BasePage;
+import page.addAgreements.AddAgreementsPage;
 import page.agreements.AgreementsPage;
 import page.calendar.CalendarPage;
 import page.catalog.CatalogPage;
+import page.implemenationTerms.ImplementTermsPage;
 import page.importation.ImportPage;
 import page.infometrics.InfometricsPage;
 import page.interests.InterestsPage;
+import page.notifications.NotificationsPage;
+import page.payments.PaymentsPage;
 import page.sbercity.SberCityPage;
 import page.scoring.ScoringPage;
 import page.settlements.SettlementsPage;
@@ -48,8 +52,8 @@ public class TestOpenEntities {
 //                arguments(ContactsPage.class, CONTACTS, "Контакты", "Создать Контакт", true, false),
 //                arguments(InterestsPage.class, INTERESTS, "Лиды", "Создать Лид", true, false),
 //                arguments(DealsPage.class, DEALS, "Сделки", "", true, false),
-//                arguments(AddAgreementsPage.class, ADD_AGREEMENTS, "Дополнительные соглашения", "", true, false),
-//                arguments(ImplementTermsPage.class, IMPL_TERMS, "Условия реализации", "Добавить шаблон", true, true),
+                arguments(AddAgreementsPage.class, ADD_AGREEMENTS, "Дополнительные соглашения", "", true, false),
+                arguments(ImplementTermsPage.class, IMPL_TERMS, "Условия реализации", "Добавить шаблон", true, true),
 //                arguments(MortgagePage.class, MORTGAGE, "Ипотека", "", true, false),
 //                arguments(SettlementsPage.class, SETTLEMENTS, "Заселение", "", true, true),
 //                arguments(TradeInPage.class, TRADE_IN, "Трейд-ин", "", true, false),
@@ -57,16 +61,18 @@ public class TestOpenEntities {
 //                arguments(ScoringPage.class, SCORING, "Скоринг", "Создать Скоринг", true, false),
 //                arguments(InfometricsPage.class, INFOMETRICS, "CSI Ипотека", "", true, true),
 //                arguments(CatalogPage.class, CATALOG, "Каталог", "Все объекты", false, false),
-//                arguments(ImportPage.class, "Импорт ОН", "Импорт ОН", "", false, false),
-                arguments(AgreementsPage.class, "Согласования", "Согласования", "", true, false),
-                arguments(CalendarPage.class, "Календарь", "Календарь", "Создать Дело", false, true)
+//                arguments(ImportPage.class, IMPORT, "Импорт ОН", "", false, false),
+//                arguments(AgreementsPage.class, AGREEMENTS, "Согласования", "", true, false),
+//                arguments(CalendarPage.class, CALENDAR, "Календарь", "Создать Дело", false, true),
+                arguments(PaymentsPage.class, PAYMENTS, "Платежи", "", true, false),
+                arguments(NotificationsPage.class, NOTIFICATION, "Уведомления", "Настроить мои уведомления", true, true)
         );
     }
 
     @ParameterizedTest
     @MethodSource("entitiesData")
     public void testOpenEntities(Class<? extends BasePage> pageClass,  // класс сущности
-                                 String nameEntity,                    // локатор сущности
+                                 SelenideElement nameEntity,           // локатор сущности
                                  String entityTitle,                   // заголовок сущности
                                  String actionButton,                  // кнопка действия в сущности
                                  boolean tableVisible,                 // есть ли таблица в сущности

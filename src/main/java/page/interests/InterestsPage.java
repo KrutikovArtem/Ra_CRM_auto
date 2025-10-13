@@ -1,21 +1,15 @@
 package page.interests;
 
-import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import page.BasePage;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static locators.Locators.ID_ON_TABLE;
-import static locators.Locators.NAME_ON_TABLE;
+import static locators.Locators.*;
 
 public class InterestsPage extends BasePage {
-    // кнопка перехода к странице создания Лида
-    private static final SelenideElement CREATE_INTERESTS_BUTTON = $(byText("Создать Лид"));
 
     @Step("Выбор кнопки 'Создать Лид'")
     public CreateInterestsPage openCreateInterests() {
-        return openPage("Создать Лид", CreateInterestsPage.class);
+        return openPage(actionButton("Создать Лид"), CreateInterestsPage.class);
     }
 
     @Step("Получение id созданного Лида из таблицы")

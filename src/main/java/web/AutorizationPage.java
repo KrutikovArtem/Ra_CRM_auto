@@ -23,7 +23,7 @@ public class AutorizationPage {
 
 //        sleep(2000);
         if (SERVER_ERROR.isDisplayed()) {
-            // в случае появлении ошибки ожидаем до 5 секунд, проверяя каждые 500мс, исчезла ли ошибка
+            // в случае появления ошибки ожидаем до 5 секунд, проверяя каждые 500мс, исчезла ли ошибка
             Wait().withTimeout(Duration.ofSeconds(5))
                     .pollingEvery(Duration.ofMillis(500))
                     .until(d -> !SERVER_ERROR.isDisplayed());

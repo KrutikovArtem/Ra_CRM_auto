@@ -21,7 +21,7 @@ public class BasePage {
     private final OpenEntitiesPage openEntitiesPage = new OpenEntitiesPage();
 
     // универсальный метод, который проверяет отображение кнопки, выбирает её и возвращает необходимый класс
-    public <T extends BasePage> T openPage(String pageElement, Class<T> pageClass) {
+    public <T extends BasePage> T openPage(SelenideElement pageElement, Class<T> pageClass) {
         tapToEntity(pageElement);
         try {
             return pageClass.getDeclaredConstructor().newInstance();
@@ -31,9 +31,9 @@ public class BasePage {
     }
 
     @Step("Поиск элемента сущности слева и тап по нему")
-    public void tapToEntity(String pageElement) {
+    public void tapToEntity(SelenideElement pageElement) {
         // преобразование селенид элемента в строку
-        String pageElementLocator = nameEntity(pageElement).getSearchCriteria();
+        String pageElementLocator = pageElement.getSearchCriteria();
         // проходит по циклу и возвращает булевое значение при совпадении с сущностью из сервиса
         boolean isService = Arrays.stream(serviceEntities)
                 .anyMatch(serviceElement ->
@@ -53,15 +53,15 @@ public class BasePage {
                 System.out.println("Открыли меню 'Сервисы'");
             }
             // выбор сущности
-            nameEntity(pageElement).shouldBe(visible).click();
+            pageElement.shouldBe(visible).click();
         } else {
-            nameEntity(pageElement).shouldBe(visible).click();
+            pageElement.shouldBe(visible).click();
         }
     }
 
     @Step("Проверка, что выбранная сущность выделена")
-    public static String getColorTextEntity(String locators) {
-        String textColorRGBA = nameEntity(locators).shouldBe(visible, Duration.ofSeconds(3)).getCssValue("color");
+    public static String getColorTextEntity(SelenideElement locators) {
+        String textColorRGBA = locators.shouldBe(visible, Duration.ofSeconds(3)).getCssValue("color");
         return convertRgbaToHex(textColorRGBA);
     }
 
@@ -82,7 +82,7 @@ public class BasePage {
         System.out.println("Название вкладки: " + title);
 
         // есть ли сущность в entitiesWithTabs (сущности с вкладками)
-        boolean isEntityWithTab = Arrays.stream(notStaticEntityTabs)
+        boolean isEntityWithTab = Arrays.stream(entitiesWithTabs)
                 .anyMatch(entity -> entity.trim().equalsIgnoreCase(title.trim())
                 );
 
@@ -100,7 +100,7 @@ public class BasePage {
                         .getText();
             } else {
                 System.out.println("Не изменяемая сущность: " + title);
-                // для остальных сущностей используем textTitle
+                // для остальных сущностей используется textTitle
                 return Locators.textTitle(title)
                         .shouldBe(visible, Duration.ofSeconds(5))
                         .getText();
@@ -123,6 +123,7 @@ public class BasePage {
 
     @Step("Возвращает открытие блоков в сущности")
     public boolean tabsIsVisible(String title) {
+
         if (title == null || title.isBlank()) {
             System.out.println("Заголовок пустой или null");
             return false;
@@ -133,44 +134,21 @@ public class BasePage {
                 if (title.equals("Заселение")) {
                     return openEntitiesPage.openTabs(tabsSettlements);
                 } else if (title.equals("CSI Ипотека")) {
-                    System.out.println(tabsInfometrics[0]);
                     return openEntitiesPage.openTabs(tabsInfometrics);
                 } else if (title.equals("Импорт ОН")) {
                     return openEntitiesPage.openTabs(tabsImport);
                 } else if (title.equals("Календарь")) {
                     return openEntitiesPage.openTabs(tabsCalendar);
+                } else if (title.equals("Уведомления")) {
+                    return openEntitiesPage.openTabs(tabsNotifications);
                 }
             }
         }
 
+        System.out.println("=== Начало проверки вкладок '" + title + "' ===");
+
         if (title.equals("Условия реализации")) {
-            System.out.println("=== Начало проверки вкладок '" + title + "' ===");
-            // проверка основной вкладки
-            boolean mainBlocksWork = openEntitiesPage.openBlocks(tabsImplTerms);
-            System.out.println("Основные вкладки работают: " + mainBlocksWork);
-
-            if (!mainBlocksWork) {
-                System.err.println("Основные вкладки не работают!");
-                return false;
-            }
-
-            // переключение в архив
-            System.out.println("=== Переключение в Архив ===");
-            try {
-                SelenideElement archiveTab = Locators.blocksTitle("Архив");
-                archiveTab.shouldBe(visible, Duration.ofSeconds(5)).click();
-                System.out.println("Успешно переключились в Архив");
-                // ожидание загрузки архива
-                sleep(2000);
-            } catch (Exception e) {
-                System.err.println("Ошибка переключения в архив: " + e.getMessage());
-                return false;
-            }
-            // проверяка блока "Архив"
-            System.out.println("=== Проверка вкладок в Архиве ===");
-            boolean archiveBlocksWork = openEntitiesPage.openBlocks(tabsImplTerms);
-            System.out.println("Вкладки в архиве работают: " + archiveBlocksWork);
-            return archiveBlocksWork;
+            return openEntitiesPage.checkInstallment(tabsImplTerms);
         }
         System.out.println("Заголовок '" + title + "' не поддерживается");
         return false;

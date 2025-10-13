@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import page.meetings.MeetingPage;
 import rest.SupportREST;
 import web.MainPage;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static rest.SupportREST.DELETE_MEETING_API;
@@ -33,7 +34,7 @@ public class TestCreateMeeting extends BaseSelenidePage {
         // создание экземпляра класса с главной страницей
         MainPage mainPage = new MainPage();
         // открытие таблицы с делами
-        MeetingPage meetingPage = mainPage.openPage("Дела", MeetingPage.class);
+        MeetingPage meetingPage = mainPage.openPage(MEETING, MeetingPage.class);
         // создание дела
         meetingPage.openCreateMeeting().createNewMeeting();
         // получение id созданного дела

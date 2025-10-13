@@ -27,6 +27,9 @@ public class MainPage extends BasePage {
     public static SelenideElement CATALOG = $x(".//a[text() = 'Каталог']");
     public static SelenideElement IMPORT = $x(".//a[text() = 'Импорт ОН']");
     public static SelenideElement AGREEMENTS = $x(".//a[text() = 'Согласования']");
+    public static SelenideElement CALENDAR = $x(".//a[text() = 'Календарь']");
+    public static SelenideElement PAYMENTS = $x(".//a[text() = 'Платежи']");
+    public static SelenideElement NOTIFICATION = $x(".//a[text() = 'Уведомления']");
 
     public ContactsPage openContactsPage(){
         CONTACTS.shouldBe(visible).click();
@@ -36,7 +39,7 @@ public class MainPage extends BasePage {
     // проверяем отображение выбранной сущности и тапаем на неё
     @Step("Открытие сущности")
     @Override
-    public <T extends BasePage> T openPage(String pageElement, Class<T> pageClass) {
+    public <T extends BasePage> T openPage(SelenideElement pageElement, Class<T> pageClass) {
         return super.openPage(pageElement, pageClass);
     }
 }

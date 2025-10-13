@@ -1,18 +1,21 @@
 package arrays;
 
 import com.codeborne.selenide.SelenideElement;
-
+import static locators.Locators.blocksTitle;
 import static web.MainPage.*;
 
 public class ArraysEntities {
 
     // массив с блоками сущности "Условия реализации"
-    public static String[] tabsImplTerms = {"Рассрочка", "Ипотека", "Льгота", "Преимущество", "Бронирование"};
+    public static SelenideElement[] tabsImplTerms = {
+            blocksTitle("Рассрочка"),
+            blocksTitle("Ипотека"),
+            blocksTitle("Льгота"),
+            blocksTitle("Преимущество"),
+            blocksTitle("Бронирование")};
 
-    // массив сущностей НЕ имеющих статического заголовка
-    public static String[] notStaticEntityTabs = {"Заселение", "CSI Ипотека", "Импорт ОН", "Календарь"};
-
-    public static String[] entitiesWithTabs = {"Заселение", "CSI Ипотека", "Импорт ОН", "Календарь"};
+    // массив сущностей имеющих вкладки
+    public static String[] entitiesWithTabs = {"Заселение", "CSI Ипотека", "Импорт ОН", "Календарь", "Уведомления"};
 
     // массив селенид элементов в сущности "Сервисы"
     public static SelenideElement[] serviceEntities = {TRADE_IN, SBER_CITY, SCORING, INFOMETRICS};
@@ -29,9 +32,9 @@ public class ArraysEntities {
     // массив с блоками сущности "Календарь"
     public static String[] tabsCalendar = {"Календарь", "График дежурств", "Занятость переговорных"};
 
+    // массив с блоками сущности "Уведомления"
+    public static String[] tabsNotifications = {"Уведомления", "Интеграционные уведомления"};
+
     // массив кнопок в созданном деле
     public static String[] meetingButton = {"Отменить", "Завершить", "Клиент в офисе", "Редактировать", "Комментарии", "Удалить"};
-
-    // уведомления
-    public static String[] tabsNotifications = {"Уведомления", "Интеграционные уведомления"};
 }
