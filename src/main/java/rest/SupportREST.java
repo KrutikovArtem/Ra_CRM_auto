@@ -6,7 +6,9 @@ import api.entityRequest.entityRequest;
 import api.entityRequest.SortOption;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
+
 import java.util.Collections;
+
 import static io.restassured.RestAssured.given;
 
 public class SupportREST {
@@ -70,7 +72,7 @@ public class SupportREST {
 
         Response response = given()
                 .header("Content-type", "application/json")
-                .header("authorization", "Bearer "+ token)
+                .header("authorization", "Bearer " + token)
                 .log().all()
                 .body(entityRequest)
                 .when()
@@ -83,7 +85,7 @@ public class SupportREST {
     @Step("Удаление созданной сущности")
     public void deleteEntity(String token, int idEntity, String locator) {
         Response response = given()
-                .header("authorization", "Bearer "+ token)
+                .header("authorization", "Bearer " + token)
                 .log().all()
                 .pathParams("id", idEntity)
                 .when()
